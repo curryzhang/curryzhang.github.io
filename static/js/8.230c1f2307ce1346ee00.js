@@ -1,0 +1,2 @@
+webpackJsonp([8],{LqM4:function(t,e,s){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var n={render:function(){var t=this.$createElement,e=this._self._c||t;return e("div",{staticClass:"home"},[e("div",[e("a",[this._v("测试")]),this._v(" "),e("el-button",{on:{click:this.Test}},[this._v("跳转")])],1)])},staticRenderFns:[]},i=s("VU/8")({data:function(){return{}},methods:{Test:function(){this.$router.push({path:"/test"})}}},n,!1,null,null,null);e.default=i.exports}});
+//# sourceMappingURL=8.230c1f2307ce1346ee00.js.map
