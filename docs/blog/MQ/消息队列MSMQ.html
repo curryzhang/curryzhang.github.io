@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>MSMQ</title>
+    <meta name="description" content="">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.8fe22975.css" as="style"><link rel="preload" href="/assets/js/app.50af9e22.js" as="script"><link rel="preload" href="/assets/js/22.87086fea.js" as="script"><link rel="prefetch" href="/assets/js/13.2d17f852.js"><link rel="prefetch" href="/assets/js/2.cda51ec0.js"><link rel="prefetch" href="/assets/js/3.fc777f15.js"><link rel="prefetch" href="/assets/js/4.94c44e35.js"><link rel="prefetch" href="/assets/js/5.c56035e9.js"><link rel="prefetch" href="/assets/js/6.f2f40b07.js"><link rel="prefetch" href="/assets/js/7.2ebccaed.js"><link rel="prefetch" href="/assets/js/8.27d77717.js"><link rel="prefetch" href="/assets/js/9.04d29e7f.js"><link rel="prefetch" href="/assets/js/10.ec966a39.js"><link rel="prefetch" href="/assets/js/11.b719c488.js"><link rel="prefetch" href="/assets/js/12.8a90bd1d.js"><link rel="prefetch" href="/assets/js/14.322c033c.js"><link rel="prefetch" href="/assets/js/15.163d14c7.js"><link rel="prefetch" href="/assets/js/16.1b07c094.js"><link rel="prefetch" href="/assets/js/17.c7309bef.js"><link rel="prefetch" href="/assets/js/18.6d00425f.js"><link rel="prefetch" href="/assets/js/19.88b26957.js"><link rel="prefetch" href="/assets/js/20.c19a5c32.js"><link rel="prefetch" href="/assets/js/21.e691da67.js"><link rel="prefetch" href="/assets/js/23.9f4d3ab4.js"><link rel="prefetch" href="/assets/js/24.cbf75ee0.js"><link rel="prefetch" href="/assets/js/25.47e62b1a.js"><link rel="prefetch" href="/assets/js/26.138c7a43.js"><link rel="prefetch" href="/assets/js/27.18a72c52.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.8fe22975.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><!---->  <!----> </div> <div class="page"> <div class="content"><h1 id="msmq"><a href="#msmq" aria-hidden="true" class="header-anchor">#</a> MSMQ</h1> <p>首先是将windows的MQ功能开启。
+<img src="http://upload-images.jianshu.io/upload_images/1708638-7e79382c64b25c81.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p> <p>新建两个windows应用程序，用来测试消息传输
+<img src="http://upload-images.jianshu.io/upload_images/1708638-5e21b7dc2fa34724.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p> <p>发送消息的代码</p> <div class="language- extra-class"><pre class="language-text"><code>MessageQueue mq;
+private void Form1_Load(object sender, EventArgs e)
+{
+    //新建消息循环队列或连接到已有的消息队列
+    string path = &quot;.\\private$\\killf&quot;;
+    if (MessageQueue.Exists(path))
+    {
+        mq = new MessageQueue(path);
+    }
+    else
+    {
+        mq = MessageQueue.Create(path);
+    }
+    mq.Formatter = new XmlMessageFormatter(new Type[] { typeof(string) });
+}
+
+private void button1_Click(object sender, EventArgs e)
+{
+    mq.Send(textBox1.Text);
+}
+</code></pre></div><p>用于接收的代码</p> <div class="language- extra-class"><pre class="language-text"><code>MessageQueue mq;
+private void Form1_Load(object sender, EventArgs e)
+{
+    //新建消息循环队列或连接到已有的消息队列
+    string path = &quot;.\\private$\\killf&quot;;
+    if (MessageQueue.Exists(path))
+    {
+        mq = new MessageQueue(path);
+    }
+    else
+    {
+        mq = MessageQueue.Create(path);
+    }
+    mq.Formatter = new XmlMessageFormatter(new Type[] { typeof(string) });
+    mq.ReceiveCompleted += mq_ReceiveCompleted;
+    mq.BeginReceive();
+}
+
+void mq_ReceiveCompleted(object sender, ReceiveCompletedEventArgs e)
+{
+    //throw new NotImplementedException();
+    MessageQueue mq = (MessageQueue)sender;
+    System.Messaging.Message m = mq.EndReceive(e.AsyncResult);
+    //处理消息
+    string str = m.Body.ToString();
+    this.textBox1.Invoke(new Action&lt;string&gt;(ShowMsg), str);
+    //继续下一条消息
+    mq.BeginReceive();
+}
+
+private void ShowMsg(string msg)
+{
+    this.textBox1.Text = this.textBox1.Text + msg + Environment.NewLine;
+    return;
+}
+</code></pre></div><p>测试完成！
+<img src="http://upload-images.jianshu.io/upload_images/1708638-59169ff901a84d4a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="OK.png"></p> <p>1、命名空间 using System.Messaging;
+2、默认存储路径 C:\WINDOWS\system32\msmq\storage
+3、创建消息队列：</p> <div class="language- extra-class"><pre class="language-text"><code>MessageQueue mq = MessageQueue.Create(@&quot;.\Private$\LeeMSMQ&quot;);
+</code></pre></div><p>4、删除队列：</p> <div class="language- extra-class"><pre class="language-text"><code>MessageQueue.Delete(@&quot;.\Private$\LeeMSMQ&quot;);
+</code></pre></div><p>5、发送消息：</p> <div class="language- extra-class"><pre class="language-text"><code>MessageQueue mq = new MessageQueue(@&quot;.\Private$\LeeMSMQ&quot;);
+mq.Send(&quot;sayhello1,hello msmq!&quot;, &quot;sayhello1&quot;);
+mq.Send(&quot;sayhello2,hello msmq!&quot;, &quot;sayhello2&quot;);
+</code></pre></div><p>6、接受并删除消息：</p> <div class="language- extra-class"><pre class="language-text"><code>MessageQueue mq = new MessageQueue(@&quot;.\Private$\LeeMSMQ&quot;)
+Message msg = mq.Receive();//引用的队列中可用的第一条消息
+</code></pre></div><p>7、接受但不删除消息：</p> <div class="language- extra-class"><pre class="language-text"><code>Message msg = mq.Peek();
+</code></pre></div><p>8、删除所有消息：</p> <div class="language- extra-class"><pre class="language-text"><code>Message msg = mq.Purge();
+</code></pre></div><p>9、返回本机所有私有队列的消息</p> <div class="language- extra-class"><pre class="language-text"><code>//返回本机所有私有队列的消息
+foreach (MessageQueue mq in MessageQueue.GetPrivateQueuesByMachine(&quot;liyanping&quot;))
+{
+    mq.Formatter = new XmlMessageFormatter(new string[] { &quot;System.String&quot; });
+    Message[] msg = mq.GetAllMessages();
+    foreach (Message m in msg)
+    {
+        Console.WriteLine(&quot;label:{0},body:{1}&quot;, m.Label, m.Body);
+    }
+}
+</code></pre></div><p>10、返回指定队列的消息</p> <div class="language- extra-class"><pre class="language-text"><code>if (MessageQueue.Exists(@&quot;.\Private$\LeeMSMQ&quot;))//判断私有消息是否存在
+{
+    using (MessageQueue mq = new MessageQueue(@&quot;.\Private$\LeeMSMQ&quot;))
+    {
+        mq.Formatter = new XmlMessageFormatter(new string[] { &quot;System.String&quot; });//设置消息队列格式化器
+        Message msg = mq.Receive();//接收消息
+        Console.WriteLine(&quot;label:{0},body: {1}&quot;, msg.Label, msg.Body);//输出消息
+        MessageQueue.Delete(@&quot;.\Private$\LeeMSMQ&quot;);
+    }
+} 
+</code></pre></div></div> <div class="page-edit"><!----> <!----></div> <!----> </div> <!----></div></div>
+    <script src="/assets/js/22.87086fea.js" defer></script><script src="/assets/js/app.50af9e22.js" defer></script>
+  </body>
+</html>
