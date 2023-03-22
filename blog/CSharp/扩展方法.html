@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C#重温—扩展方法 | 张小东的博客</title>
+    <meta name="description" content="你有没有想过，为这世界带来哪怕一点点改变">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.eb66b6c2.css" as="style"><link rel="preload" href="/assets/js/app.143a9d04.js" as="script"><link rel="preload" href="/assets/js/2.dd5e25a6.js" as="script"><link rel="preload" href="/assets/js/10.a0097486.js" as="script"><link rel="prefetch" href="/assets/js/11.8b5788ec.js"><link rel="prefetch" href="/assets/js/12.52eb9020.js"><link rel="prefetch" href="/assets/js/13.c39c9fef.js"><link rel="prefetch" href="/assets/js/14.a8de470f.js"><link rel="prefetch" href="/assets/js/15.e295a471.js"><link rel="prefetch" href="/assets/js/16.aff43432.js"><link rel="prefetch" href="/assets/js/17.730ea7bc.js"><link rel="prefetch" href="/assets/js/18.11bf13b7.js"><link rel="prefetch" href="/assets/js/19.45ee0a0c.js"><link rel="prefetch" href="/assets/js/20.ae44722d.js"><link rel="prefetch" href="/assets/js/21.e28fdf74.js"><link rel="prefetch" href="/assets/js/22.22ae7645.js"><link rel="prefetch" href="/assets/js/23.b00341be.js"><link rel="prefetch" href="/assets/js/24.e12111a7.js"><link rel="prefetch" href="/assets/js/25.05d1756d.js"><link rel="prefetch" href="/assets/js/26.068b0484.js"><link rel="prefetch" href="/assets/js/27.d3b20267.js"><link rel="prefetch" href="/assets/js/28.f134b8b4.js"><link rel="prefetch" href="/assets/js/29.5b7c10c0.js"><link rel="prefetch" href="/assets/js/3.429550cf.js"><link rel="prefetch" href="/assets/js/30.a82d479a.js"><link rel="prefetch" href="/assets/js/31.ce205c53.js"><link rel="prefetch" href="/assets/js/32.c7d79304.js"><link rel="prefetch" href="/assets/js/33.a28d2f65.js"><link rel="prefetch" href="/assets/js/34.58bd2250.js"><link rel="prefetch" href="/assets/js/35.033970e5.js"><link rel="prefetch" href="/assets/js/36.d038a22e.js"><link rel="prefetch" href="/assets/js/4.78dc510e.js"><link rel="prefetch" href="/assets/js/5.afa58404.js"><link rel="prefetch" href="/assets/js/6.92a87af5.js"><link rel="prefetch" href="/assets/js/7.6fd48adc.js"><link rel="prefetch" href="/assets/js/8.967bfd65.js"><link rel="prefetch" href="/assets/js/9.0c23ab14.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.eb66b6c2.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">张小东的博客</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">主页</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">个人文章</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/CSharp/" class="nav-link router-link-active">C#</a></li><li class="dropdown-item"><!----> <a href="/blog/Net/" class="nav-link">Net</a></li><li class="dropdown-item"><!----> <a href="/blog/JavaScript/" class="nav-link">JavaScript入门系列</a></li><li class="dropdown-item"><!----> <a href="/blog/DDD/" class="nav-link">DDD</a></li><li class="dropdown-item"><!----> <a href="/blog/MQ/" class="nav-link">MQ</a></li><li class="dropdown-item"><!----> <a href="/blog/Redis/" class="nav-link">Redis</a></li><li class="dropdown-item"><!----> <a href="/blog/SignalR/" class="nav-link">SignalR</a></li></ul></div></div><div class="nav-item"><a href="https://www.jianshu.com/u/0469adf1cb7b" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  简书
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">主页</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">个人文章</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/CSharp/" class="nav-link router-link-active">C#</a></li><li class="dropdown-item"><!----> <a href="/blog/Net/" class="nav-link">Net</a></li><li class="dropdown-item"><!----> <a href="/blog/JavaScript/" class="nav-link">JavaScript入门系列</a></li><li class="dropdown-item"><!----> <a href="/blog/DDD/" class="nav-link">DDD</a></li><li class="dropdown-item"><!----> <a href="/blog/MQ/" class="nav-link">MQ</a></li><li class="dropdown-item"><!----> <a href="/blog/Redis/" class="nav-link">Redis</a></li><li class="dropdown-item"><!----> <a href="/blog/SignalR/" class="nav-link">SignalR</a></li></ul></div></div><div class="nav-item"><a href="https://www.jianshu.com/u/0469adf1cb7b" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  简书
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/blog/CSharp/" class="sidebar-link">C#语法</a></li><li><a href="/blog/CSharp/Lambda表达式.html" class="sidebar-link">C#重温-Lambda表达式</a></li><li><a href="/blog/CSharp/泛型.html" class="sidebar-link">C#重温—泛型</a></li><li><a href="/blog/CSharp/多线程.html" class="sidebar-link">C#重温-多线程</a></li><li><a href="/blog/CSharp/扩展方法.html" class="active sidebar-link">C#重温—扩展方法</a></li><li><a href="/blog/CSharp/动态类型.html" class="sidebar-link">C#重温—动态类型</a></li></ul> </aside> <main class="page"> <div class="content default"><h1 id="c-重温—扩展方法"><a href="#c-重温—扩展方法" aria-hidden="true" class="header-anchor">#</a> C#重温—扩展方法</h1> <p>注意点：</p> <ol><li>必须在一个非嵌套的、非泛型的静态类中（所以必须是一个静态方法）</li> <li>至少有一个参数</li> <li>第一个参数必须附加this关键字作为前缀</li> <li>第一个参数不能有其他任何修饰符（比如out、ref）</li> <li>第一个参数的类型不能是指针类型</li></ol> <p>扩展方法最大的用途就是为LINQ服务，Enumerable和Queryable都是在System.Linq命名空间中，Enumerable的大多数扩展的是IEnumerable<T>，Queryable的大多数扩展的是IQueryable<T>。</T></T></p> <div class="language- extra-class"><pre class="language-text"><code>public class Person
+{
+    public string Name { set; get; }
+    public int Age { set; get; }
+}
+
+public static class Extension
+{
+    //Person的扩展方法，根据年龄判断是否是成年人
+    public static bool IsChild(this Person oPerson)
+    {
+        if (oPerson.Age &gt;= 18)
+            return false;
+        else
+            return true;
+    }
+}
+</code></pre></div><p>附上经典的linq中Distinct去重，我们无法按照具体需求或某个字段去重，这时候扩张方法就派上用场了</p> <div class="language- extra-class"><pre class="language-text"><code>public static class DistinctExtensions  
+{  
+   public static IEnumerable&lt;T&gt; Distinct&lt;T, V&gt;(this IEnumerable&lt;T&gt; source, Func&lt;T, V&gt; keySelector)  
+   {  
+        return source.Distinct(new CommonEqualityComparer&lt;T, V&gt;(keySelector));  
+    }  
+} 
+
+public class CommonEqualityComparer&lt;T, V&gt; : IEqualityComparer&lt;T&gt;  
+{  
+    private Func&lt;T, V&gt; keySelector;  
+  
+    public CommonEqualityComparer(Func&lt;T, V&gt; keySelector)  
+    {  
+        this.keySelector = keySelector;  
+    }  
+  
+    public bool Equals(T x, T y)  
+    {  
+        return EqualityComparer&lt;V&gt;.Default.Equals(keySelector(x), keySelector(y));  
+    }  
+  
+    public int GetHashCode(T obj)  
+    {  
+        return EqualityComparer&lt;V&gt;.Default.GetHashCode(keySelector(obj));  
+    }  
+}  
+</code></pre></div><p>使用</p> <div class="language- extra-class"><pre class="language-text"><code>Product[] products =   
+{  
+    new Product { Name = &quot;Smallapple&quot;, Code = 9 },   
+    new Product { Name = &quot;orange&quot;, Code = 4 },   
+    new Product { Name = &quot;Bigapple&quot;, Code = 9 },  
+    new Product { Name = &quot;lemon&quot;, Code = 12 }  
+};  
+  
+var p1 = products.Distinct(p =&gt; p.Code); //按照code来去重 
+foreach (Product pro in p1)  
+    Console.WriteLine(pro.Name + &quot;,&quot; + pro.Code); 
+Console.ReadKey();
+</code></pre></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last Updated: </span> <span class="time">11/2/2018, 11:31:48 AM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/blog/CSharp/多线程.html" class="prev">
+          C#重温-多线程
+        </a></span> <span class="next"><a href="/blog/CSharp/动态类型.html">
+          C#重温—动态类型
+        </a>
+        →
+      </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.143a9d04.js" defer></script><script src="/assets/js/2.dd5e25a6.js" defer></script><script src="/assets/js/10.a0097486.js" defer></script>
+  </body>
+</html>

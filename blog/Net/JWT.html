@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>JWT的使用 | 张小东的博客</title>
+    <meta name="description" content="你有没有想过，为这世界带来哪怕一点点改变">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.47c66c6b.css" as="style"><link rel="preload" href="/assets/js/app.00b2df31.js" as="script"><link rel="preload" href="/assets/js/24.c5f123dd.js" as="script"><link rel="prefetch" href="/assets/js/10.cd716c02.js"><link rel="prefetch" href="/assets/js/11.6417d4f8.js"><link rel="prefetch" href="/assets/js/12.9bcefc9e.js"><link rel="prefetch" href="/assets/js/13.c692f457.js"><link rel="prefetch" href="/assets/js/14.cd1fb4fd.js"><link rel="prefetch" href="/assets/js/15.1bb79f12.js"><link rel="prefetch" href="/assets/js/16.e3bd1d58.js"><link rel="prefetch" href="/assets/js/17.59ea0eba.js"><link rel="prefetch" href="/assets/js/18.473d64a2.js"><link rel="prefetch" href="/assets/js/19.7f512a80.js"><link rel="prefetch" href="/assets/js/2.b12891ef.js"><link rel="prefetch" href="/assets/js/20.f27b2aa2.js"><link rel="prefetch" href="/assets/js/21.09723c6c.js"><link rel="prefetch" href="/assets/js/22.0c153e00.js"><link rel="prefetch" href="/assets/js/23.da8010e6.js"><link rel="prefetch" href="/assets/js/25.59228641.js"><link rel="prefetch" href="/assets/js/26.4fbe75f6.js"><link rel="prefetch" href="/assets/js/27.db3126d4.js"><link rel="prefetch" href="/assets/js/28.78c9f5dc.js"><link rel="prefetch" href="/assets/js/29.4a61ea66.js"><link rel="prefetch" href="/assets/js/3.ca32f8bb.js"><link rel="prefetch" href="/assets/js/30.1f15ca98.js"><link rel="prefetch" href="/assets/js/31.b765d461.js"><link rel="prefetch" href="/assets/js/32.1f04c5e7.js"><link rel="prefetch" href="/assets/js/33.f78ab6b6.js"><link rel="prefetch" href="/assets/js/34.e05524c8.js"><link rel="prefetch" href="/assets/js/35.52177942.js"><link rel="prefetch" href="/assets/js/36.b20dae31.js"><link rel="prefetch" href="/assets/js/37.a4022658.js"><link rel="prefetch" href="/assets/js/38.a0089ea8.js"><link rel="prefetch" href="/assets/js/39.aef1359d.js"><link rel="prefetch" href="/assets/js/4.cb8b742e.js"><link rel="prefetch" href="/assets/js/40.2315b2f6.js"><link rel="prefetch" href="/assets/js/5.7164941b.js"><link rel="prefetch" href="/assets/js/6.c7b899b6.js"><link rel="prefetch" href="/assets/js/7.fa5291f3.js"><link rel="prefetch" href="/assets/js/8.c14e73f1.js"><link rel="prefetch" href="/assets/js/9.e1d48659.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.47c66c6b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">张小东的博客</span></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">主页</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">个人文章</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/CSharp/" class="nav-link">C#</a></li><li class="dropdown-item"><!----> <a href="/blog/Net/" class="nav-link router-link-active">Net</a></li><li class="dropdown-item"><!----> <a href="/blog/JavaScript/" class="nav-link">JavaScript入门系列</a></li><li class="dropdown-item"><!----> <a href="/blog/DDD/" class="nav-link">DDD</a></li><li class="dropdown-item"><!----> <a href="/blog/MQ/" class="nav-link">MQ</a></li><li class="dropdown-item"><!----> <a href="/blog/Redis/" class="nav-link">Redis</a></li><li class="dropdown-item"><!----> <a href="/blog/SignalR/" class="nav-link">SignalR</a></li><li class="dropdown-item"><!----> <a href="/blog/Vue/" class="nav-link">前端系列</a></li></ul></div></div><div class="nav-item"><a href="https://www.jianshu.com/u/0469adf1cb7b" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  简书
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">主页</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">个人文章</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/CSharp/" class="nav-link">C#</a></li><li class="dropdown-item"><!----> <a href="/blog/Net/" class="nav-link router-link-active">Net</a></li><li class="dropdown-item"><!----> <a href="/blog/JavaScript/" class="nav-link">JavaScript入门系列</a></li><li class="dropdown-item"><!----> <a href="/blog/DDD/" class="nav-link">DDD</a></li><li class="dropdown-item"><!----> <a href="/blog/MQ/" class="nav-link">MQ</a></li><li class="dropdown-item"><!----> <a href="/blog/Redis/" class="nav-link">Redis</a></li><li class="dropdown-item"><!----> <a href="/blog/SignalR/" class="nav-link">SignalR</a></li><li class="dropdown-item"><!----> <a href="/blog/Vue/" class="nav-link">前端系列</a></li></ul></div></div><div class="nav-item"><a href="https://www.jianshu.com/u/0469adf1cb7b" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  简书
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/blog/Net/" class="sidebar-link">欢迎来到.Net的世界</a></li><li><a href="/blog/Net/CORS跨域.html" class="sidebar-link">WebApi(1)—CORS跨域</a></li><li><a href="/blog/Net/帮助文档.html" class="sidebar-link">WebApi(2)—帮助文档</a></li><li><a href="/blog/Net/身份认证.html" class="sidebar-link">WebApi(3)—身份认证</a></li><li><a href="/blog/Net/Dapper.html" class="sidebar-link">Dapper的使用入门</a></li><li><a href="/blog/Net/JWT.html" class="active sidebar-link">JWT的使用</a><ul class="sidebar-sub-headers"></ul></li></ul> </div> <div class="page"> <div class="content"><h1 id="jwt的使用"><a href="#jwt的使用" aria-hidden="true" class="header-anchor">#</a> JWT的使用</h1> <h3 id="jwt说明"><a href="#jwt说明" aria-hidden="true" class="header-anchor">#</a> JWT说明</h3> <p>首先JWT是由header、payload和signature（签名）组成，header一般张这样</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  'typ': 'JWT',
+  'alg': 'HS256'
+}
+</code></pre></div><p>这部分说明了生命的类型和算法</p> <p>playload是存放有效信息的地方，一般包含三个部分</p> <ul><li>标准中注册的声明</li> <li>公共的声明</li> <li>私有的声明
+可以用这部分来存在用户的一些信息，例如：</li></ul> <div class="language- extra-class"><pre class="language-text"><code>{
+    UserName = &quot;curry&quot;,
+    Roles = new List&lt;string&gt; { &quot;Admin&quot;, &quot;Manager&quot; }, 
+    IsAdmin = true 
+}
+</code></pre></div><p>jwt的第三部分是一个签证信息，这个签证信息由三部分组成：</p> <ul><li>header (base64后的)</li> <li>payload (base64后的)</li> <li>secret</li></ul> <div class="language- extra-class"><pre class="language-text"><code>var encodedString = base64UrlEncode(header) + '.' + base64UrlEncode(payload);
+
+var signature = HMACSHA256(encodedString, 'secret');
+</code></pre></div><h3 id="jwt使用"><a href="#jwt使用" aria-hidden="true" class="header-anchor">#</a> JWT使用</h3> <p>安装nuget包JWT</p> <p>在Web.config文件的AppSetting节点添加</p> <div class="language- extra-class"><pre class="language-text"><code>&lt;add key=&quot;SecureKey&quot; value=&quot;If someone can change the world, why is that person not you?&quot;/&gt;
+</code></pre></div><p>新建几个类文件</p> <div class="language- extra-class"><pre class="language-text"><code>public class LoginRequest
+{
+    public string UserName { get; set; }
+    public string Password { get; set; }
+}
+
+public class AuthInfo
+{
+    //模拟JWT的payload
+    public string UserName { get; set; }
+    public List&lt;string&gt; Roles { get; set; }
+    public bool IsAdmin { get; set; }
+}
+
+public class LoginResult
+{
+    public bool Success { get; set; }
+    public string Token { get; set; }
+    public string Message { get; set; }
+}
+</code></pre></div><p>新建控制器</p> <div class="language- extra-class"><pre class="language-text"><code>public LoginResult Post([FromBody]LoginRequest request)
+{
+    LoginResult rs = new LoginResult();
+    //这是是获取用户名和密码的，这里只是为了模拟
+    if (request.UserName == &quot;curry&quot; &amp;&amp; request.Password == &quot;123456&quot;)
+    {
+        AuthInfo info = new AuthInfo { UserName = &quot;curry&quot;, Roles = new List&lt;string&gt; {&quot;Admin&quot;,&quot;Manager&quot; }, IsAdmin = true };
+        try
+        {
+            byte[] key =Encoding.Default.GetBytes(ConfigurationManager.AppSettings[&quot;SecureKey&quot;]);
+           
+            IJwtAlgorithm algorithm = new HMACSHA256Algorithm();
+            IJsonSerializer serializer = new JsonNetSerializer();
+            IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
+            IJwtEncoder encoder = new JwtEncoder(algorithm, serializer, urlEncoder);
+            var token = encoder.Encode(info, key);
+            
+            rs.Message = &quot;返回消息XXXX&quot;;
+            rs.Token = token;
+            rs.Success = true;
+        }
+        catch (Exception ex)
+        {
+            rs.Message = ex.Message;
+            rs.Success = false;
+        }
+    }
+    else
+    {
+        rs.Message = &quot;fail&quot;;
+        rs.Success = false;
+    }
+    return rs;
+}
+</code></pre></div><p>客户端获取到token后存放在本地，在下次请求时，将token放到请求头中，这边我用postman模拟请求</p> <p>先写个特性用来统一使用</p> <div class="language- extra-class"><pre class="language-text"><code>public class ApiAuthorizeAttribute: AuthorizeAttribute
+{
+    /// &lt;summary&gt;
+    /// 权限拦截器
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;actionContext&quot;&gt;&lt;/param&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    protected override bool IsAuthorized(HttpActionContext actionContext)
+    {
+        var authHeader = from t in actionContext.Request.Headers where t.Key == &quot;auth&quot; selectt.Value.FirstOrDefault();
+        if (authHeader != null)
+        {
+            string token = authHeader.FirstOrDefault();
+            if (!string.IsNullOrEmpty(token))
+            {
+                try
+                {
+                    byte[] key =Encoding.Default.GetBytes(ConfigurationManager.AppSettings[&quot;SecureKey&quot;]);
+                    //const string secret = &quot;If someone can change the world, why is that personnot you?&quot;;
+                    //secret需要加密
+                    IJsonSerializer serializer = new JsonNetSerializer();
+                    IDateTimeProvider provider = new UtcDateTimeProvider();
+                    IJwtValidator validator = new JwtValidator(serializer, provider);
+                    IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
+                    IJwtDecoder decoder = new JwtDecoder(serializer, validator, urlEncoder);
+                    var json = decoder.DecodeToObject&lt;AuthInfo&gt;(token, key, verify: true);
+                    if (json != null)
+                    {
+                        actionContext.RequestContext.RouteData.Values.Add(&quot;auth&quot;, json);
+                        return true;
+                    }
+                    return false;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+}
+</code></pre></div><p>再创建一个控制器去测试</p> <div class="language- extra-class"><pre class="language-text"><code>public class UserController : ApiController
+{
+    [HttpPost]
+    [Route(&quot;Get&quot;)]
+    [ApiAuthorize]
+    public string Get()
+    {
+        AuthInfo info = RequestContext.RouteData.Values[&quot;auth&quot;] as AuthInfo;
+        if (info == null)
+        {
+            return &quot;获取不到，失败&quot;;
+        }
+        else
+        {
+            return $&quot;获取到了，Auth的Name是 {info.UserName}&quot;;
+        }
+    }
+}
+</code></pre></div></div> <div class="page-edit"><!----> <!----></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/blog/Net/Dapper.html" class="prev">
+          Dapper的使用入门
+        </a></span> <!----></p></div> </div> <!----></div></div>
+    <script src="/assets/js/app.00b2df31.js" defer></script><script src="/assets/js/24.c5f123dd.js" defer></script>
+  </body>
+</html>
