@@ -2,4 +2,4 @@
 User-agent:*
 Disallow:
 
-Sitemap: https://curryzhang.github.io/sitemap.xml
+Sitemap: https://github.com/curryzhang/CurryBook/sitemap.xml
