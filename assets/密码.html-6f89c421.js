@@ -1,0 +1,16 @@
+import{_ as e,W as a,X as i,a1 as d}from"./framework-a4c02b8f.js";const s={},n=d(`<h3 id="redis设置密码" tabindex="-1"><a class="header-anchor" href="#redis设置密码" aria-hidden="true">#</a> Redis设置密码</h3><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>redis 127.0.0.1:6379&gt; config set requirepass &quot;123&quot;
+OK
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="设置密码后-需要验证成功才能操作" tabindex="-1"><a class="header-anchor" href="#设置密码后-需要验证成功才能操作" aria-hidden="true">#</a> 设置密码后，需要验证成功才能操作</h3><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>redis 127.0.0.1:6379&gt; auth &quot;123&quot;
+OK
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="redis查看密码" tabindex="-1"><a class="header-anchor" href="#redis查看密码" aria-hidden="true">#</a> Redis查看密码</h3><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>redis 127.0.0.1:6379&gt; config get requirepass
+1) &quot;requirepass&quot;
+2) &quot;123&quot;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="查看服务是否运行" tabindex="-1"><a class="header-anchor" href="#查看服务是否运行" aria-hidden="true">#</a> 查看服务是否运行</h3><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>redis 127.0.0.1:6379&gt; ping
+PONG
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="关闭连接" tabindex="-1"><a class="header-anchor" href="#关闭连接" aria-hidden="true">#</a> 关闭连接</h3><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>redis 127.0.0.1:6379&gt; quit
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><h3 id="在远程服务器上执行命令" tabindex="-1"><a class="header-anchor" href="#在远程服务器上执行命令" aria-hidden="true">#</a> 在远程服务器上执行命令</h3><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>redis-cli -h host -p port -a password
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><h3 id="以下实例演示了如何连接到主机为-127-0-0-1-端口为-6379-密码为-mypass-的-redis-服务上。" tabindex="-1"><a class="header-anchor" href="#以下实例演示了如何连接到主机为-127-0-0-1-端口为-6379-密码为-mypass-的-redis-服务上。" aria-hidden="true">#</a> 以下实例演示了如何连接到主机为 127.0.0.1，端口为 6379 ，密码为 mypass 的 redis 服务上。</h3><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>redis-cli -h 127.0.0.1 -p 6379 -a &quot;mypass&quot;
+redis 127.0.0.1:6379&gt;
+redis 127.0.0.1:6379&gt; PING
+PONG
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div>`,14),r=[n];function t(l,c){return a(),i("div",null,r)}const v=e(s,[["render",t],["__file","密码.html.vue"]]);export{v as default};
