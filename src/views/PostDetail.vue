@@ -5,6 +5,7 @@
       <h1 class="title">{{ post.title }}</h1>
       <div class="meta">
         <span>{{ formatDate(post.date) }}</span>
+        <span v-if="post.category" class="cat">{{ post.category }}</span>
         <span v-if="post.tags.length" class="tags">
           <span v-for="t in post.tags" :key="t" class="tag">{{ t }}</span>
         </span>
@@ -43,6 +44,7 @@ async function load(slug) {
     post.value = {
       title: data.title || slug,
       date: data.date || '',
+      category: data.category || '',
       tags: Array.isArray(data.tags) ? data.tags : data.tags ? [data.tags] : [],
       content
     }
@@ -78,6 +80,15 @@ watch(() => route.params.slug, (s) => s && load(s))
   color: var(--text-muted);
   font-size: 13px;
   margin-bottom: 20px;
+}
+.cat {
+  display: inline-block;
+  padding: 1px 9px;
+  font-size: 12px;
+  border-radius: 999px;
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fed7aa;
 }
 .hint {
   color: var(--text-muted);
