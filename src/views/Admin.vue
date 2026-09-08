@@ -1,5 +1,26 @@
 <template>
   <section class="admin">
+    <!-- 第一道门：管理员密码 -->
+    <div v-if="!unlocked" class="login card">
+      <h1>管理员验证</h1>
+      <p class="desc">请输入管理员密码以进入后台。</p>
+      <label class="field">
+        <span>管理员密码</span>
+        <input
+          class="input"
+          type="password"
+          v-model="pwdInput"
+          placeholder="请输入密码"
+          @keyup.enter="checkPwd"
+        />
+      </label>
+      <button class="btn btn-primary" :disabled="busy || !pwdInput" @click="checkPwd">
+        进入后台
+      </button>
+      <p v-if="pwdError" class="error">{{ pwdError }}</p>
+    </div>
+
+    <template v-else>
     <!-- 未登录：登录 -->
     <div v-if="!loggedIn" class="login card">
       <h1>管理员登录</h1>
@@ -68,6 +89,13 @@
           <label class="field">
             <span>文件名(slug)</span>
             <input class="input" v-model="form.slug" placeholder="留空则自动生成" />
+          </label>
+          <label class="field">
+            <span>类别</span>
+            <select class="input" v-model="form.category">
+              <option value="">未分类</option>
+              <option v-for="c in CONFIG.categories" :key="c" :value="c">{{ c }}</option>
+            </select>
           </label>
           <label class="field">
             <span>标签(逗号分隔)</span>
@@ -142,6 +170,7 @@
 
       <p v-if="msg" :class="['msg', msgType]">{{ msg }}</p>
     </div>
+    </template>
   </section>
 </template>
 
@@ -171,6 +200,25 @@ const busy = ref(false)
 const error = ref('')
 const tab = ref('write')
 const editing = ref(false)
+
+// ---------- 管理员密码门 ----------
+const unlocked = ref(sessionStorage.getItem('admin_unlocked') === '1')
+const pwdInput = ref('')
+const pwdError = ref('')
+function checkPwd() {
+  busy.value = true
+  pwdError.value = ''
+  // 极短延时，避免误触；密码为前端静态校验（仅用于隐藏入口，非真正安全）
+  setTimeout(() => {
+    if (pwdInput.value === CONFIG.adminPassword) {
+      unlocked.value = true
+      sessionStorage.setItem('admin_unlocked', '1')
+    } else {
+      pwdError.value = '密码错误，请重试'
+    }
+    busy.value = false
+  }, 150)
+}
 
 const userName = computed(() => authState.user?.login || 'me')
 const userInitial = computed(() => (userName.value || 'M').slice(0, 1).toUpperCase())
@@ -210,6 +258,7 @@ const form = reactive({
   title: '',
   date: dayjs().format('YYYY-MM-DD'),
   slug: '',
+  category: '',
   tags: '',
   description: '',
   content: ''
@@ -223,6 +272,7 @@ function resetForm() {
   form.title = ''
   form.date = dayjs().format('YYYY-MM-DD')
   form.slug = ''
+  form.category = ''
   form.tags = ''
   form.description = ''
   form.content = ''
@@ -237,6 +287,7 @@ async function publishPost() {
     const data = {
       title: form.title,
       date: form.date,
+      category: form.category || '',
       tags: form.tags
         .split(',')
         .map((s) => s.trim())
@@ -296,6 +347,7 @@ async function editPost(p) {
     form.title = data.title || p.slug
     form.date = data.date || dayjs().format('YYYY-MM-DD')
     form.slug = p.slug
+    form.category = data.category || ''
     form.tags = Array.isArray(data.tags) ? data.tags.join(', ') : data.tags || ''
     form.description = data.description || ''
     form.content = content
