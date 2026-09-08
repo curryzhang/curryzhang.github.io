@@ -10,22 +10,28 @@
         <h2 class="section-title">最新文章</h2>
         <div v-if="loading" class="hint">加载中…</div>
         <div v-else-if="!posts.length" class="hint empty">
-          还没有文章。去 <router-link to="/admin">管理页</router-link> 发布第一篇吧～
+          还没有文章，敬请期待～
         </div>
         <PostCard v-for="p in posts" :key="p.slug" :post="p" />
       </div>
 
       <aside class="side">
-        <h2 class="section-title">
-          最近说说
-          <router-link to="/moments" class="more">更多 ›</router-link>
-        </h2>
-        <div v-if="momentsLoading" class="hint">加载中…</div>
-        <div v-else-if="!recentMoments.length" class="hint">暂无说说</div>
-        <div v-else class="side-moments">
-          <div v-for="m in recentMoments" :key="m.id" class="side-moment">
-            <p class="side-moment-text">{{ plain(m.content) }}</p>
-            <span class="side-moment-date">{{ shortDate(m.date) }}</span>
+        <div class="profile card">
+          <div class="profile-avatar">
+            <img v-if="CONFIG.profile.avatar" :src="CONFIG.profile.avatar" :alt="CONFIG.profile.name" />
+            <span v-else>{{ (CONFIG.profile.name || '?').charAt(0) }}</span>
+          </div>
+          <h3 class="profile-name">{{ CONFIG.profile.name }}</h3>
+          <p class="profile-slogan">{{ CONFIG.profile.slogan }}</p>
+          <div class="profile-links">
+            <a
+              v-for="l in CONFIG.profile.links"
+              :key="l.url"
+              :href="l.url"
+              target="_blank"
+              rel="noopener"
+              class="profile-link"
+            >{{ l.label }}</a>
           </div>
         </div>
       </aside>
@@ -35,7 +41,6 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import dayjs from 'dayjs'
 import PostCard from '../components/PostCard.vue'
 import { CONFIG } from '../config.js'
 import { listPosts, getRawFile } from '../lib/github.js'
@@ -44,15 +49,6 @@ import { getToken } from '../lib/store.js'
 
 const posts = ref([])
 const loading = ref(true)
-const recentMoments = ref([])
-const momentsLoading = ref(true)
-
-function plain(md) {
-  return (md || '').replace(/[#>*`_-]/g, '').slice(0, 60)
-}
-function shortDate(d) {
-  return d ? dayjs(d).format('MM-DD') : ''
-}
 
 async function loadPosts() {
   try {
@@ -67,6 +63,7 @@ async function loadPosts() {
           title: data.title || f.slug,
           date: data.date || '',
           tags: Array.isArray(data.tags) ? data.tags : data.tags ? [data.tags] : [],
+          category: data.category || '',
           description: data.description || ''
         })
       } catch (e) {
@@ -82,24 +79,8 @@ async function loadPosts() {
   }
 }
 
-async function loadMoments() {
-  try {
-    const raw = await getRawFile(CONFIG.momentsPath)
-    const arr = JSON.parse(raw)
-    if (Array.isArray(arr)) {
-      arr.sort((a, b) => (b.date || '').localeCompare(a.date || ''))
-      recentMoments.value = arr.slice(0, 5)
-    }
-  } catch (e) {
-    // moments.json 可能还不存在
-  } finally {
-    momentsLoading.value = false
-  }
-}
-
 onMounted(() => {
   loadPosts()
-  loadMoments()
 })
 </script>
 
@@ -129,37 +110,60 @@ onMounted(() => {
   align-items: center;
   justify-content: space-between;
 }
-.more {
-  font-size: 13px;
-  font-weight: 400;
-}
 .side {
   position: sticky;
   top: 72px;
 }
-.side-moments {
+.profile {
+  padding: 22px 18px;
+  text-align: center;
+}
+.profile-avatar {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 700;
+}
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.profile-name {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+.profile-slogan {
+  margin: 0 0 16px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.profile-links {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
-.side-moment {
-  background: var(--surface);
+.profile-link {
+  display: block;
+  padding: 8px 12px;
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 12px;
-}
-.side-moment-text {
-  margin: 0;
+  border-radius: 8px;
   font-size: 13px;
   color: var(--text);
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
-.side-moment-date {
-  font-size: 11px;
-  color: var(--text-muted);
+.profile-link:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  text-decoration: none;
 }
 .hint {
   color: var(--text-muted);
