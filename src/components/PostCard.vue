@@ -3,6 +3,7 @@
     <h2 class="post-title">{{ post.title }}</h2>
     <div class="post-meta">
       <span>{{ formatDate(post.date) }}</span>
+      <span v-if="post.category" class="cat">{{ post.category }}</span>
       <span v-if="post.tags && post.tags.length" class="post-tags">
         <span v-for="t in post.tags" :key="t" class="tag">{{ t }}</span>
       </span>
@@ -46,6 +47,15 @@ function formatDate(d) {
   font-size: 13px;
   color: var(--text-muted);
   margin-bottom: 8px;
+}
+.cat {
+  display: inline-block;
+  padding: 1px 9px;
+  font-size: 12px;
+  border-radius: 999px;
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fed7aa;
 }
 .post-desc {
   margin: 0;
