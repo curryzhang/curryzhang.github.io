@@ -2,6 +2,7 @@
 title: 欢迎来到我的新博客
 date: 2026-09-08
 tags: [公告, 随笔]
+category: 前端
 description: 用 Vue3 + GitHub Pages 搭建的全新博客，支持后台发布文章与每日"说说"。
 ---
 
@@ -16,9 +17,9 @@ description: 用 Vue3 + GitHub Pages 搭建的全新博客，支持后台发布�
 
 ## 怎么发文章？
 
-1. 打开右上角「管理」
-2. 粘贴你的 GitHub Token 登录
-3. 写标题、标签、正文（支持 Markdown）
+1. 进入管理页（地址栏直接访问 `/#/admin`）
+2. 输入管理员密码，再粘贴你的 GitHub Token 登录
+3. 写标题、类别、标签、正文（支持 Markdown）
 4. 点「发布文章」——内容就推送到 GitHub 了，刷新页面即可见
 
 就这么简单 🎉
