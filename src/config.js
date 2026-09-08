@@ -22,5 +22,24 @@ export const CONFIG = {
 
   // 可选：给自己博客换个头像/主页链接
   author: 'Curry',
-  homeUrl: 'https://curryzhang.github.io/'
+  homeUrl: 'https://curryzhang.github.io/',
+
+  // 文章类别（写文章时下拉选择，导航栏"代码笔记"下拉展示）
+  categories: ['前端', 'C#', 'MySQL'],
+
+  // 管理员密码（进入管理页的第一道门，与 GitHub Token 登录独立）
+  adminPassword: 'Curry6663',
+
+  // 首页侧栏「个人信息」卡片
+  profile: {
+    name: '张小东',
+    slogan: '欲买桂花同载酒，终不似，少年游',
+    // 头像留空则使用姓名首字生成；也可填图片 URL
+    avatar: '',
+    links: [
+      { label: '博客', url: 'http://curryzhang.top' },
+      { label: '简书', url: 'https://www.jianshu.com/u/0469adf1cb7b' },
+      { label: 'GitHub', url: 'https://github.com/curryzhang' }
+    ]
+  }
 }
