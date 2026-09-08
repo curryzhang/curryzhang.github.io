@@ -49,9 +49,11 @@ export async function listPosts(token) {
     }))
 }
 
-// 直接读取仓库原始文件内容（raw 接口不限 API 速率，且支持跨域）
+// 读取站点内容文件（文章 / 说说）。
+// 本站部署在 username.github.io 根目录，内容文件与站点同源，
+// 直接走相对根路径（如 /content/posts/xxx.md）即可，无需依赖 raw 接口的跨域。
 export async function getRawFile(path) {
-  const res = await fetch(`${RAW}/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.branch}/${path}`)
+  const res = await fetch(`/${path}`)
   if (!res.ok) throw new Error(`读取 ${path} 失败 (${res.status})`)
   return res.text()
 }
