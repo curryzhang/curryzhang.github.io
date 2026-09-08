@@ -102,3 +102,6 @@ export const CONFIG = {
 ---
 
 技术栈：Vue 3 · Vite · vue-router · marked · highlight.js · GitHub REST API
+
+---
+最后部署触发：2026-09-08 14:10:02 UTC
