@@ -16,12 +16,12 @@
       </div>
 
       <aside class="side">
+        <h2 class="section-title">关于我</h2>
         <div class="profile card">
           <div class="profile-avatar">
-            <img v-if="CONFIG.profile.avatar" :src="CONFIG.profile.avatar" :alt="CONFIG.profile.name" />
+            <img v-if="CONFIG.profile.avatar" :src="CONFIG.profile.avatar" :alt="CONFIG.profile.name || CONFIG.siteTitle" />
             <span v-else>{{ (CONFIG.profile.name || '?').charAt(0) }}</span>
           </div>
-          <h3 class="profile-name">{{ CONFIG.profile.name }}</h3>
           <p class="profile-slogan">{{ CONFIG.profile.slogan }}</p>
           <div class="profile-links">
             <a
@@ -124,7 +124,8 @@ onMounted(() => {
   margin: 0 auto 12px;
   border-radius: 50%;
   overflow: hidden;
-  background: var(--primary);
+  background: var(--surface);
+  border: 1px solid var(--border);
   color: #fff;
   display: flex;
   align-items: center;
@@ -135,7 +136,9 @@ onMounted(() => {
 .profile-avatar img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  padding: 6px;
+  box-sizing: border-box;
 }
 .profile-name {
   margin: 0 0 6px;
