@@ -124,9 +124,9 @@ onMounted(() => {
   margin: 0 auto 12px;
   border-radius: 50%;
   overflow: hidden;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: #fff;
+  background: transparent;
+  border: none;
+  color: var(--text);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -137,8 +137,6 @@ onMounted(() => {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 6px;
-  box-sizing: border-box;
 }
 .profile-name {
   margin: 0 0 6px;
