@@ -34,8 +34,8 @@ export const CONFIG = {
   profile: {
     name: '张小东',
     slogan: '欲买桂花同载酒，终不似，少年游',
-    // 头像留空则使用姓名首字生成；也可填图片 URL
-    avatar: '',
+    // 头像：填图片路径（public 下的文件，如 logo.svg）或图片 URL；留空则使用姓名首字生成
+    avatar: 'logo.svg',
     links: [
       { label: '博客', url: 'http://curryzhang.top' },
       { label: '简书', url: 'https://www.jianshu.com/u/0469adf1cb7b' },
