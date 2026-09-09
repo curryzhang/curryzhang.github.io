@@ -92,10 +92,15 @@
           </label>
           <label class="field">
             <span>类别</span>
-            <select class="input" v-model="form.category">
-              <option value="">未分类</option>
-              <option v-for="c in CONFIG.categories" :key="c" :value="c">{{ c }}</option>
-            </select>
+            <input
+              class="input"
+              list="category-list"
+              v-model="form.category"
+              placeholder="选择或输入自定义类别"
+            />
+            <datalist id="category-list">
+              <option v-for="c in CONFIG.categories" :key="c" :value="c"></option>
+            </datalist>
           </label>
           <label class="field">
             <span>标签(逗号分隔)</span>
@@ -278,6 +283,8 @@ function resetForm() {
   form.content = ''
   editing.value = false
   editSha = null
+  // 取消编辑 / 保存后回到「文章管理」列表页
+  tab.value = 'posts'
 }
 
 async function publishPost() {
