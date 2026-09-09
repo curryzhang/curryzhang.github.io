@@ -26,6 +26,12 @@
             >{{ c }}</router-link>
           </div>
         </div>
+        <button
+          class="theme-toggle"
+          @click="toggleTheme"
+          :title="theme === 'dark' ? '切换到浅色' : '切换到暗黑'"
+          :aria-label="theme === 'dark' ? '切换到浅色' : '切换到暗黑'"
+        >{{ theme === 'dark' ? '☀️' : '🌙' }}</button>
       </nav>
     </div>
   </header>
@@ -36,8 +42,10 @@ import { ref, onMounted } from 'vue'
 import { CONFIG } from '../config.js'
 import { listPosts, getRawFile } from '../lib/github.js'
 import { parseFrontmatter } from '../lib/frontmatter.js'
+import { useTheme } from '../lib/theme.js'
 
 const dropOpen = ref(false)
+const { theme, toggleTheme } = useTheme()
 // 默认类别来自 config，再合并文章里出现过的自定义类别，让导航下拉始终包含全部类别
 const categories = ref([...CONFIG.categories])
 
@@ -65,7 +73,7 @@ onMounted(async () => {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--nav-bg);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border);
 }
@@ -168,5 +176,24 @@ onMounted(async () => {
   background: var(--primary-soft);
   color: var(--primary);
   text-decoration: none;
+}
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  transition: all 0.15s;
+}
+.theme-toggle:hover {
+  border-color: var(--primary);
+  color: var(--primary);
 }
 </style>
