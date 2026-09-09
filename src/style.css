@@ -9,6 +9,37 @@
   --danger: #e11d48;
   --radius: 12px;
   --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --nav-bg: rgba(255, 255, 255, 0.85);
+}
+
+/* 暗黑模式：在 <html data-theme="dark"> 时覆盖变量 */
+:root[data-theme='dark'] {
+  --bg: #0f1115;
+  --surface: #181b21;
+  --border: #2a2e36;
+  --text: #e6e8eb;
+  --text-muted: #9aa1ad;
+  --primary: #818cf8;
+  --primary-soft: #232842;
+  --danger: #fb7185;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.4);
+  --nav-bg: rgba(15, 17, 21, 0.85);
+}
+
+/* 暗黑模式下几处浅色卡片微调，避免刺眼 */
+:root[data-theme='dark'] .btn-danger:hover {
+  background: #2a1620;
+}
+:root[data-theme='dark'] .msg.ok {
+  background: #0f2e22;
+  color: #6ee7b7;
+}
+:root[data-theme='dark'] .msg.err {
+  background: #2e1518;
+  color: #fda4af;
+}
+:root[data-theme='dark'] .token-help code {
+  background: #2a2e36;
 }
 
 * {
