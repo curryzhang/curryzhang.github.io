@@ -6,8 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Curry 的博客 —— 记录技术、生活与每日碎碎念" />
     <title>Curry 的博客</title>
-    <script type="module" crossorigin src="./assets/index-Dn8zedxw.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Dq6eeOZb.css">
+    <script>
+      // 在应用挂载前先确定主题，避免闪烁
+      (function () {
+        try {
+          var t = localStorage.getItem('theme')
+          if (!t) {
+            t = window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light'
+          }
+          document.documentElement.setAttribute('data-theme', t)
+        } catch (e) {}
+      })()
+    </script>
+    <script type="module" crossorigin src="./assets/index-BMlGJwdr.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-B7Fj9anX.css">
   </head>
   <body>
     <div id="app"></div>
