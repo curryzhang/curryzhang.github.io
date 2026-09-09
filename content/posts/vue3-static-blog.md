@@ -1,8 +1,8 @@
 ---
 title: 用 Vue3 做一个零后端的博客
 date: 2026-09-07
-tags: [Vue, 前端, 架构]
 category: 前端
+tags: ["Vue", "前端", "架构"]
 description: 把 GitHub 仓库当成后台和数据库，纯静态站点也能拥有完整的发布能力。
 ---
 
