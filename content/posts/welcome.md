@@ -1,7 +1,7 @@
 ---
 title: 欢迎来到我的新博客
 date: 2026-09-08
-category: 前端
+category: 公告
 tags: ["公告", "随笔"]
 description: 用 Vue3 + GitHub Pages 搭建的全新博客，支持后台发布文章与每日"说说"。
 ---
